@@ -46,18 +46,20 @@ class SistemaController extends Controller
 //        dd($request->all());
 //        dd($request->delCliente);
 //        dd($request->has('delCliente'));
+//        dd($request->get('delCliente'));
 //        if($request->delCliente == 'Excluir')
 //        dd($request->get('delSimulacao')[0]);
+//        dd($request->get('delSimulacao'));
         if($request->has('delCliente'))
         {
             $cadastro = Cliente::all();
-            $id = $request->get('delCliente')[0];
+            $id = $request->get('delCliente');
             $voltar = 1;
         }
         if($request->has('delImovel'))
         {
             $cadastro = Imovel::all();
-            $id = $request->get('delImovel')[0];
+            $id = $request->get('delImovel');
             $voltar = 2;
         }
         if($request->has('delSimulacao'))

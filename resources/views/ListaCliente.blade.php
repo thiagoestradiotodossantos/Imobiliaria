@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <script src="/js/app.js"></script>
+
 </head>
 
 <body>
@@ -88,10 +89,49 @@
                     <td>{{$cliente->renda}}</td>
                     {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
                     <td>
-                        <form action="{{ route('excluiCadastro') }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="submit" name="delCliente" value="{{  $cliente->id }}">
-                        </form>
+                        <!--BOTÃO 1-->
+                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<input type="submit" name="delCliente" value="{{  $cliente->id }}">--}}
+                        {{--</form>--}}
+
+                        <!--BOTÃO 2-->
+                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<input type="hidden" name="delCliente" value="{{ $cliente->id }}">--}}
+                            {{--<button type="submit">Excluir</button>--}}
+                        {{--</form>--}}
+
+                        <!--BOTÃO 3 Modal-->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary sm-lg" data-toggle="modal" data-target="#myModal">
+                            Excluir
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Tem certeza que deseja excluir o cadastro?</h5>
+                                    </div>
+                                    <div class="modal-footer" style="display: flex">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
+                                        <form action="{{ route('excluiCadastro') }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="delCliente" value="{{ $cliente->id }}">
+                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Excluir</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </td>
                 </tr>
         @endforeach

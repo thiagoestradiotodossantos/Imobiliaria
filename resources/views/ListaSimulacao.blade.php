@@ -106,9 +106,14 @@
                     <td>{{ $simulacao->nParcelas }}</td>
                     <td>{{ $simulacao->estado }}</td>
                     <td>
+                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<input type="submit" name="delSimulacao[]" value="{{ $simulacao->id }}">--}}
+                        {{--</form>--}}
                         <form action="{{ route('excluiCadastro') }}" method="POST">
                             {{ csrf_field() }}
-                            <input type="submit" name="delSimulacao[]" value="{{ $simulacao->id }}">
+                            <input type="hidden" name="delSimulacao[]" value="{{ $simulacao->id }}">
+                            <button type="submit">Excluir</button>
                         </form>
                     </td>
                     <td>

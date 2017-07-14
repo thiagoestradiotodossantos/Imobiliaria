@@ -80,9 +80,14 @@
                     <td>{{$imovel->unidade}}</td>
                     <td>{{$imovel->preco}}</td>
                     <td>
+                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<input type="submit" name="delImovel" value="{{ $imovel->id }}">--}}
+                        {{--</form>--}}
                         <form action="{{ route('excluiCadastro') }}" method="POST">
                             {{ csrf_field() }}
-                            <input type="submit" name="delImovel" value="{{ $imovel->id }}">
+                            <input type="hidden" name="delImovel" value="{{ $imovel->id }}">
+                            <button type="submit">Excluir</button>
                         </form>
                     </td>
                 </tr>
