@@ -60,52 +60,47 @@
 </div>
 
 <div class="col-lg-offset-0 col-lg-12">
-    <h2 class="st_1">Lista de Clientes</h2>
+    <h2 class="st_1">Simular Financiamento</h2>
 </div>
-</div>
-<!------------------------------------LISTA DE CLIENTES------------------------------------------------>
-<section id="list_clientes">
 
-    <!--------------Tabela---------------------->
-    {{--<div class="table-responsive">--}}
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <td>CPF</td>
-            <td>Nome</td>
-            <td>Idade</td>
-            <td>Renda</td>
-            <td>Excluir Cadastro</td>
-        </tr>
-        </thead>
-        <tbody>
-        @if($clientes)
-            @foreach($clientes as $cliente)
-                <tr>
-                    <td>{{$cliente->cpf}}</td>
-                    <td>{{$cliente->nome}}</td>
-                    <td>{{$cliente->idade}}</td>
-                    <td>{{$cliente->renda}}</td>
-                    {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
-                    <td>
-                        <form action="{{ route('excluiCadastro') }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="submit" name="delCliente" value="{{  $cliente->id }}">
-                        </form>
-                    </td>
-                </tr>
-        @endforeach
-        @endif
-        <tbody>
 
-        </tbody>
-    </table>
-    {{--</div>--}}
-    {{--<select name="select" id="1">--}}
-    {{--@foreach($clientes as $cliente)--}}
-    {{--<option value="{{$cliente->id}}">{{$cliente->nome}}</option>--}}
-    {{--@endforeach--}}
-    {{--</select>--}}
-</section>
+    <form class="form-horizontal" action=" {{ route('cadastraSimulacao') }}" method="POST">
+        {{csrf_field()}}
+        <div class="form-group">
+            <label for="iclienteid" class="col-sm-2 control-label">Cliente: </label>
+            <div class="col-sm-10">
+                <input type="string" name="clienteid" id="iclienteid" placeholder="CPF do cliente">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="iimovelid" class="col-sm-2 control-label">Imóvel: </label>
+            <div class="col-sm-10">
+                <input type="number" name="imovelid" id="iimovelid" placeholder="Unidade do imóvel">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inparcelas" class="col-sm-2 control-label">Número de Parcelas: </label>
+            <div class="col-sm-10">
+                <input type="number" name="nparcelas" id="inparcelas" placeholder="Ou número de meses">
+            </div>
+        </div>
+        <div class="form-group col-sm-3 control-label">
+            <input type="submit" name="publicar" value="Publicar">
+        </div>
+    </form>
+
+    {{--<form action=" {{ route('cadastraSimulacao') }}" method="POST">--}}
+    {{--{{ csrf_field() }}--}}
+    {{--<label for="iclienteid">Cliente: </label>--}}
+    {{--<input type="text" name="clienteid" id="iclienteid" placeholder="CPF do cliente" maxlength="11">--}}
+    {{--<!--Fazer lista com as opsões-->--}}
+    {{--<label for="iimovelid">Imóvel: </label>--}}
+    {{--<input type="number" name="imovelid" id="iimovelid" placeholder="Unidade do imóvel" maxlength="5">--}}
+    {{--<label for="inparcelas">Número de parcelas: </label>--}}
+    {{--<input type="number" name="nparcelas" id="inparcelas" placeholder="Ou número de meses">--}}
+    {{--<input type="submit" name="publicar" value="Publicar">--}}
+    {{--</form>--}}
+
+
 </body>
 </html>

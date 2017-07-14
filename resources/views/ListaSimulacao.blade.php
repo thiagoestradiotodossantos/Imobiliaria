@@ -60,52 +60,76 @@
 </div>
 
 <div class="col-lg-offset-0 col-lg-12">
-    <h2 class="st_1">Lista de Clientes</h2>
+    <h2 class="st_1">Lista de Simulações</h2>
 </div>
 </div>
-<!------------------------------------LISTA DE CLIENTES------------------------------------------------>
-<section id="list_clientes">
+
+<section id="list_imoveis">
 
     <!--------------Tabela---------------------->
-    {{--<div class="table-responsive">--}}
     <table class="table table-bordered">
         <thead>
         <tr>
-            <td>CPF</td>
-            <td>Nome</td>
-            <td>Idade</td>
-            <td>Renda</td>
-            <td>Excluir Cadastro</td>
+            <td>Nome do Cliente</td>
+            <td>Unidade</td>
+            <td>Preço</td>
+            <td>Entrada</td>
+            <td>Subsídio</td>
+            <td>Juros</td>
+            <td>Número de parcelas</td>
+            <td>Status</td>
+            <td>Excluir</td>
         </tr>
         </thead>
         <tbody>
-        @if($clientes)
-            @foreach($clientes as $cliente)
+        @if($simulacoes)
+
+            @foreach($simulacoes as $simulacao)
+
+                {{--                {{dump($simulacao->id)}}--}}
+                {{--                {{dump($simulacao->cliente)}}--}}
+                {{--                {{die()}}--}}
+                {{--@if($simulacao->id == 21)--}}
+                {{--{{dd($simulacao->cliente)}}--}}
+                {{--@endif--}}
+
                 <tr>
-                    <td>{{$cliente->cpf}}</td>
-                    <td>{{$cliente->nome}}</td>
-                    <td>{{$cliente->idade}}</td>
-                    <td>{{$cliente->renda}}</td>
-                    {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
+                    {{--{{dump($simulacao) }}--}}
+                    {{--{{dump($simulacao->cliente) }}--}}
+
+                    <td>{{ $simulacao->cliente->nome }}</td>
+                    <td>{{ $simulacao->imovelId }}</td>
+                    <td>{{ $simulacao->imovel->preco }}</td>
+                    <td>{{ $simulacao->entrada }}</td>
+                    <td>{{ $simulacao->subsidio }}</td>
+                    <td>{{ $simulacao->juros }}</td>
+                    <td>{{ $simulacao->nParcelas }}</td>
+                    <td>{{ $simulacao->estado }}</td>
                     <td>
                         <form action="{{ route('excluiCadastro') }}" method="POST">
                             {{ csrf_field() }}
-                            <input type="submit" name="delCliente" value="{{  $cliente->id }}">
+                            <input type="submit" name="delSimulacao[]" value="{{ $simulacao->id }}">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('age') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="aceitar[]" value="{{ $simulacao->id }}">
+                            <button type="submit">Aceitar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('age') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="negar[]" value="{{ $simulacao->id }}">
+                            <button type="submit">Negar</button>
                         </form>
                     </td>
                 </tr>
-        @endforeach
+            @endforeach
         @endif
-        <tbody>
-
         </tbody>
     </table>
-    {{--</div>--}}
-    {{--<select name="select" id="1">--}}
-    {{--@foreach($clientes as $cliente)--}}
-    {{--<option value="{{$cliente->id}}">{{$cliente->nome}}</option>--}}
-    {{--@endforeach--}}
-    {{--</select>--}}
 </section>
 </body>
 </html>

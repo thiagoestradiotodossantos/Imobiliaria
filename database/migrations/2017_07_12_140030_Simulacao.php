@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Cliente extends Migration
+class Simulacao extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class Cliente extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function(Blueprint $table){
+        Schema::create ('simulacoes', function (Blueprint $table){
             $table->increments('id');
-            $table->bigInteger('cpf');
-            $table->unique('cpf');
-            $table->string('nome',50);
-            $table->integer('idade');
-            $table->decimal('renda');
+            $table->bigInteger('clienteId');
+            $table->integer('imovelId');
+            $table->integer('nParcelas');
+            $table->decimal('entrada');
+            $table->decimal('subsidio');
+            $table->float('juros');
+            $table->string('estado');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -32,6 +34,6 @@ class Cliente extends Migration
      */
     public function down()
     {
-        Schema::drop('clientes');
+        Schema::drop('simulacoes');
     }
 }

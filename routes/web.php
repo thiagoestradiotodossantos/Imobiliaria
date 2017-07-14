@@ -15,9 +15,24 @@
 //ROTAS DO SISTEMA--------------------------------------------------------------------------//
 Route::get('/', function () {
     return view('index');
-});
+})->name('inicio');
 
 Route::post('/Exlui', 'SistemaController@exclui')->name('excluiCadastro');
+//__________________________________________________________________________________________//
+
+
+//ROTAS DAS SIMULAÇÕES-----------------------------------------------------------------------//
+Route::get('/Simular', function (){
+    return view('Simular');
+})->name('formSimulacao');
+
+Route::post('/Simulacao', 'SimulacaoController@simula')->name('simula');
+
+Route::post('/CadastraSimulacao', 'SimulacaoController@cadastra')->name('cadastraSimulacao');
+
+Route::get('/ListaSimulacao', 'SimulacaoController@lista')->name('listaSimulacao');
+
+Route::post('/Acao', 'SimulacaoController@age')->name('age');
 //__________________________________________________________________________________________//
 
 

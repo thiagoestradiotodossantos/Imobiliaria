@@ -34,7 +34,6 @@ class ClienteController extends Controller
         $novoCliente->renda = $request->renda;
 
         $novoCliente->save();
-
 //        return redirect($novoCliente)->route('listaCliente');
         return view('CadastrarCliente');
     }

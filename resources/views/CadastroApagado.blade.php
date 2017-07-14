@@ -7,3 +7,7 @@
 @if($voltar == 2)
     <a href="{{ route('listaImovel') }}">Voltar</a>
 @endif
+
+@if($voltar == 3)
+    <a href="{{ route('listaSimulacao') }}">Voltar</a>
+@endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Imovel;
+use App\Simulacao;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -42,26 +43,33 @@ class SistemaController extends Controller
 //        return view('CadastroApagado');
 //...................................................................................
 
-        //dd($request->all());
-        //dd($request->delCliente);
-        //dd($request->has('delCliente'));
-        //if($request->delCliente == 'Excluir')
-
+//        dd($request->all());
+//        dd($request->delCliente);
+//        dd($request->has('delCliente'));
+//        if($request->delCliente == 'Excluir')
+//        dd($request->get('delSimulacao')[0]);
         if($request->has('delCliente'))
         {
             $cadastro = Cliente::all();
-            $id = $request->delCliente;
+            $id = $request->get('delCliente')[0];
             $voltar = 1;
         }
         if($request->has('delImovel'))
         {
             $cadastro = Imovel::all();
-            $id = $request->delImovel;
+            $id = $request->get('delImovel')[0];
             $voltar = 2;
         }
+        if($request->has('delSimulacao'))
+        {
+            $cadastro = Simulacao::all();
+            $id = $request->get('delSimulacao')[0];
+            $voltar = 3;
+        }
 
-        $cadastro = $cadastro->where('id', $id)->first();
-        $cadastro->delete();
+        $cadastro = $cadastro->where('id', $id);
+//        dd($cadastro->first());
+        $cadastro->first()->delete();
         return view('CadastroApagado')->with('voltar', $voltar);
 
     }
