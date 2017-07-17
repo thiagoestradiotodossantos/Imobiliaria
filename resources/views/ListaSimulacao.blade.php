@@ -59,13 +59,18 @@
     </div>
 </div>
 
+@if($errors->first())
+    {{--<h4>{{$errors->first()}}</h4>--}}
+    <div class="alert alert-info" role="alert">
+        <strong>{{$errors->first()}}</strong> A operação foi realizada com sucesso.
+    </div>
+@endif
+
 <div class="col-lg-offset-0 col-lg-12">
     <h2 class="st_1">Lista de Simulações</h2>
 </div>
-</div>
 
 <section id="list_imoveis">
-
     <!--------------Tabela---------------------->
     <table class="table table-bordered">
         <thead>
@@ -93,44 +98,107 @@
                 {{--{{dd($simulacao->cliente)}}--}}
                 {{--@endif--}}
 
-                <tr>
-                    {{--{{dump($simulacao) }}--}}
-                    {{--{{dump($simulacao->cliente) }}--}}
+                {{--{{dd($simulacao) }}--}}
+                {{--{{dump($simulacao->cliente) }}--}}
+                @if($simulacao->cliente)
+                    @if($simulacao->imovel)
+                        <tr>
+                            <td>{{ $simulacao->cliente->nome }}</td>
+                            <td>{{ $simulacao->imovelId }}</td>
+                            <td>{{ $simulacao->imovel->preco }}</td>
+                            <td>{{ $simulacao->entrada }}</td>
+                            <td>{{ $simulacao->subsidio }}</td>
+                            <td>{{ $simulacao->juros }}</td>
+                            <td>{{ $simulacao->nParcelas }}</td>
+                            <td>{{ $simulacao->estado }}</td>
+                            <td>
+                                {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
+                                {{--<input type="submit" name="delSimulacao[]" value="{{ $simulacao->id }}">--}}
+                                {{--</form>--}}
 
-                    <td>{{ $simulacao->cliente->nome }}</td>
-                    <td>{{ $simulacao->imovelId }}</td>
-                    <td>{{ $simulacao->imovel->preco }}</td>
-                    <td>{{ $simulacao->entrada }}</td>
-                    <td>{{ $simulacao->subsidio }}</td>
-                    <td>{{ $simulacao->juros }}</td>
-                    <td>{{ $simulacao->nParcelas }}</td>
-                    <td>{{ $simulacao->estado }}</td>
-                    <td>
-                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<input type="submit" name="delSimulacao[]" value="{{ $simulacao->id }}">--}}
-                        {{--</form>--}}
+                                {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                                {{--{{ csrf_field() }}--}}
+                                {{--<input type="hidden" name="delSimulacao[]" value="{{ $simulacao->id }}">--}}
+                                {{--<button type="submit">Excluir</button>--}}
+                                {{--</form>--}}
+                                <button type="button" class="btn btn-danger sm-lg" data-toggle="modal"
+                                        data-target="#myModal">
+                                    Excluir
+                                </button>
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel"
+                                     data-b>
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <h5>Tem certeza que deseja excluir o cadastro?</h5>
+                                            </div>
+
+                                            {{--<div class="modal-footer">--}}
+                                            <div class="modal-footer" style="display: flex">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Cancelar
+                                                </button>
+                                                {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
+                                                {{--<form action="/" method="GET">--}}
+                                                <div class="col-md-2 col-md-offset-0">
+                                                    <form action="{{ route('excluiCadastro') }}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="delSimulacao[]"
+                                                               value="{{ $simulacao->id }}">
+                                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <form action="{{ route('age') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="aceitar[]" value="{{ $simulacao->id }}">
+                                    <button type="submit">Aceitar</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ route('age') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="negar[]" value="{{ $simulacao->id }}">
+                                    <button type="submit">Negar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @else
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Ops!</strong> Simulação do cliente não pode ser
+                            efetuada!
+                            <form action="{{ route('excluiCadastro') }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="delSimulacao[]" value="{{ $simulacao->id }}">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    @endif
+                @else
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Ops!</strong> Simulação do empreendimento não pode ser
+                        efetuada!
                         <form action="{{ route('excluiCadastro') }}" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="delSimulacao[]" value="{{ $simulacao->id }}">
                             <button type="submit">Excluir</button>
                         </form>
-                    </td>
-                    <td>
-                        <form action="{{ route('age') }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="aceitar[]" value="{{ $simulacao->id }}">
-                            <button type="submit">Aceitar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{{ route('age') }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="negar[]" value="{{ $simulacao->id }}">
-                            <button type="submit">Negar</button>
-                        </form>
-                    </td>
-                </tr>
+                    </div>
+                @endif
             @endforeach
         @endif
         </tbody>

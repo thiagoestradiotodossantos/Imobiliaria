@@ -59,9 +59,15 @@
     </div>
 </div>
 
+@if($errors->first())
+    {{--    <h4>{{$errors->first()}}</h4>--}}
+    <div class="alert alert-info" role="alert">
+        <strong>{{$errors->first()}}</strong> A operação foi realizada com sucesso. Atente-se à lista de simulações.
+        </div>
+@endif
+
 <div class="col-lg-offset-0 col-lg-12">
     <h2 class="st_1">Lista de Imóveis</h2>
-</div>
 </div>
 
 
@@ -84,11 +90,50 @@
                             {{--{{ csrf_field() }}--}}
                             {{--<input type="submit" name="delImovel" value="{{ $imovel->id }}">--}}
                         {{--</form>--}}
-                        <form action="{{ route('excluiCadastro') }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="delImovel" value="{{ $imovel->id }}">
-                            <button type="submit">Excluir</button>
-                        </form>
+
+                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
+                            {{--<button type="submit">Excluir</button>--}}
+                        {{--</form>--}}
+
+
+                            <button type="button" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">
+                                Excluir
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                 data-b>
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <h5>Tem certeza que deseja excluir o cadastro?</h5>
+                                        </div>
+
+                                        {{--<div class="modal-footer">--}}
+                                        <div class="modal-footer" style="display: flex">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                                            </button>
+                                            {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
+                                            {{--<form action="/" method="GET">--}}
+                                            <div class="col-md-2 col-md-offset-0">
+                                                <form action="{{ route('excluiCadastro') }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="delImovel" value="{{ $imovel->id }}">
+                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                     </td>
                 </tr>
         @endforeach

@@ -73,7 +73,7 @@
     <div class="form-group">
         <label for="inome" class="col-sm-2 control-label">Nome do Empreendimento: </label>
         <div class="col-sm-10">
-            <input type="text" name="nome" id="inome" placeholder="Nome">
+            <input type="text" name="nome" id="inome" placeholder="Nome" autofocus="autofocus">
         </div>
     </div>
     <div class="form-group">

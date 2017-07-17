@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Imovel;
 use App\Simulacao;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Redirect;
 
 class SistemaController extends Controller
 {
@@ -44,8 +46,8 @@ class SistemaController extends Controller
 //...................................................................................
 
 //        dd($request->all());
-//        dd($request->delCliente);
-//        dd($request->has('delCliente'));
+        dd($request->delCliente);
+//        dump($request->get('delSimulacao'));
 //        dd($request->get('delCliente'));
 //        if($request->delCliente == 'Excluir')
 //        dd($request->get('delSimulacao')[0]);
@@ -53,26 +55,33 @@ class SistemaController extends Controller
         if($request->has('delCliente'))
         {
             $cadastro = Cliente::all();
-            $id = $request->get('delCliente');
-            $voltar = 1;
+            $id = $request->get('delCliente')[0];
+//            $voltar = 1;
         }
         if($request->has('delImovel'))
         {
             $cadastro = Imovel::all();
-            $id = $request->get('delImovel');
-            $voltar = 2;
+            $id = $request->get('delImovel')[0];
+//            $voltar = 2;
         }
         if($request->has('delSimulacao'))
         {
             $cadastro = Simulacao::all();
             $id = $request->get('delSimulacao')[0];
-            $voltar = 3;
+//            $voltar = 3;
         }
 
         $cadastro = $cadastro->where('id', $id);
-//        dd($cadastro->first());
+//        dd($cadastro);
         $cadastro->first()->delete();
-        return view('CadastroApagado')->with('voltar', $voltar);
 
+
+//        return view('CadastroApagado')->with('voltar', $voltar);
+        return back()->withErrors(array('aviso'=>'Cadastro Apagado.'));
     }
+
+//    public function erro()
+//    {
+//
+//    }
 }

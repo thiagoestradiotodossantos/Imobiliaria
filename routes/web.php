@@ -18,6 +18,8 @@ Route::get('/', function () {
 })->name('inicio');
 
 Route::post('/Exlui', 'SistemaController@exclui')->name('excluiCadastro');
+
+//Route::post('/Erro', 'SistemaController@erro')->name('erroCadastro');
 //__________________________________________________________________________________________//
 
 
@@ -28,11 +30,11 @@ Route::get('/Simular', function (){
 
 Route::post('/Simulacao', 'SimulacaoController@simula')->name('simula');
 
-Route::post('/CadastraSimulacao', 'SimulacaoController@cadastra')->name('cadastraSimulacao');
+Route::post('/Simular', 'SimulacaoController@cadastra')->name('cadastraSimulacao');
 
 Route::get('/ListaSimulacao', 'SimulacaoController@lista')->name('listaSimulacao');
 
-Route::post('/Acao', 'SimulacaoController@age')->name('age');
+Route::post('/ListaSimulacao', 'SimulacaoController@age')->name('age');
 //__________________________________________________________________________________________//
 
 

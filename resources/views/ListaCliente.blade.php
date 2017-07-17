@@ -10,6 +10,7 @@
 
 <body>
 
+<!--Barra de Navegação Fixa-->
 <div class="col-lg-offset-0 col-lg-12">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -54,11 +55,22 @@
         </div>
     </nav>
 </div>
+
 <div class="jumbotron">
     <div class="col-lg-offset-0 col-lg-12">
         <h2 class="titulo_2">Imobiliária Lothus - Simulação Habitacional MCMV</h2>
     </div>
 </div>
+
+
+@if($errors->first())
+    {{--{{dump($errors->first())}}--}}
+    {{--    <h4>{{$errors->first()}}</h4>--}}
+    <div class="alert alert-info" role="alert">
+        <strong>{{$errors->first()}}</strong> A operação foi realizada com sucesso. Atente-se à lista de simulações.
+    </div>
+@endif
+
 
 <div class="col-lg-offset-0 col-lg-12">
     <h2 class="st_1">Lista de Clientes</h2>
@@ -66,7 +78,6 @@
 </div>
 <!------------------------------------LISTA DE CLIENTES------------------------------------------------>
 <section id="list_clientes">
-
     <!--------------Tabela---------------------->
     {{--<div class="table-responsive">--}}
     <table class="table table-bordered">
@@ -89,49 +100,76 @@
                     <td>{{$cliente->renda}}</td>
                     {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
                     <td>
-                        <!--BOTÃO 1-->
-                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<input type="submit" name="delCliente" value="{{  $cliente->id }}">--}}
-                        {{--</form>--}}
+                    {{----}}
+                    <!--BOTÃO 1-->
+                    {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                    {{--{{ csrf_field() }}--}}
+                    {{--<input type="submit" name="delCliente" value="{{  $cliente->id }}">--}}
+                    {{--</form>--}}
+                    {{----}}
+                    <!--BOTÃO 2-->
+                    {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
+                    {{--{{ csrf_field() }}--}}
+                    {{--<input type="hidden" name="delCliente" value="{{ $cliente->id }}">--}}
+                    {{--<button type="submit">Excluir</button>--}}
+                    {{--</form>--}}
+                    {{----}}
+                    {{----}}
+                    {{----}}
 
-                        <!--BOTÃO 2-->
-                        {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<input type="hidden" name="delCliente" value="{{ $cliente->id }}">--}}
-                            {{--<button type="submit">Excluir</button>--}}
-                        {{--</form>--}}
 
-                        <!--BOTÃO 3 Modal-->
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary sm-lg" data-toggle="modal" data-target="#myModal">
+                    <!--BOTÃO 3 Modal-->
+
+                    <!-- Button trigger modal -->
+                        <input type="hidden" name="delCliente[]" value="{{ $cliente->id }}">
+                        {{--<button type="submit" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">--}}
+                        <button type="submit" class="btn btn-danger sm-lg" data-toggle="modal" data-target="{{$myModal[]}}">
                             Excluir
                         </button>
+                        {{--{{dump($cliente->id)}}--}}
+                        {{--{{dump($delCliente[0])}}--}}
+
+                        {{--<button type="button" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">--}}
+                            {{--Excluir--}}
+                        {{--</button>--}}
 
                         <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        {{--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"--}}
+                        <div class="modal fade" id="myModal[]" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             data-b>
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
                                     </div>
+
                                     <div class="modal-body">
                                         <h5>Tem certeza que deseja excluir o cadastro?</h5>
                                     </div>
+
+                                    {{--<div class="modal-footer">--}}
                                     <div class="modal-footer" style="display: flex">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                                        </button>
                                         {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
-                                        <form action="{{ route('excluiCadastro') }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="delCliente" value="{{ $cliente->id }}">
-                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Excluir</button>
-                                        </form>
+                                        {{--<form action="/" method="GET">--}}
+                                        <div class="col-md-2 col-md-offset-0">
+                                            <form action="{{ route('excluiCadastro') }}" method="POST">
+                                                {{ csrf_field() }}
+
+                                                {{--{{dump($cliente->id)}}--}}
+                                                <input type="hidden" name="delCliente[]" value="{{ $cliente->id }}">
+
+                                                {{--<input type="hidden" name="delCliente" value=$delCliente[]>--}}
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </td>
                 </tr>
         @endforeach

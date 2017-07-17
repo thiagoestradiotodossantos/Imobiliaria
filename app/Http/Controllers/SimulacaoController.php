@@ -26,16 +26,26 @@ class SimulacaoController extends Controller
         $novaSimulacao->clienteId = $request->clienteid;
         $novaSimulacao->imovelId = $request->imovelid;
         $novaSimulacao->nParcelas = $request->nparcelas;
-
-        $novaSimulacao->save();//
+//
 //        dd($novaSimulacao->nParcelas);
 //        dd($request->clienteid);
 //
-        $this->simula($novaSimulacao);//
-//
-//        dd($oi);
-//
-        return view('Simular');
+//        dd($novaSimulacao->cliente);
+        if($novaSimulacao->cliente)
+        {
+            if($novaSimulacao->imovel)
+            {
+                $novaSimulacao->save();//
+                $this->simula($novaSimulacao);//
+                return view('Simular');
+            }
+            else
+//                return route('erroCadastro', 1);
+                return back()->withErrors(array('aviso'=>'Imóvel não cadastrado.'));
+        }
+        else
+//            return route('erroCadastro', 2);
+            return back()->withErrors(array('aviso'=>'Cliente não cadastrado.'));
     }
 
     public function simula(Simulacao $simulacao)

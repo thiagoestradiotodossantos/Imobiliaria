@@ -56,16 +56,24 @@
         </div>
     </nav>
 </div>
-    <div class="jumbotron">
-        <div class="col-lg-offset-0 col-lg-12">
-            <h2 class="titulo_2">Imobiliária Lothus - Simulação Habitacional MCMV</h2>
-        </div>
-    </div>
-
+<div class="jumbotron">
     <div class="col-lg-offset-0 col-lg-12">
-        <h2 class="st_1">Cadastramento de Cliente</h2>
+        <h2 class="titulo_2">Imobiliária Lothus - Simulação Habitacional MCMV</h2>
     </div>
 </div>
+
+@if($errors->first())
+    {{--{{dump($errors->first())}}--}}
+    {{--    <h4>{{$errors->first()}}</h4>--}}
+    <div class="alert alert-warning" role="alert">
+        <strong>{{$errors->first()}}</strong> Por favor, tente novamente.
+    </div>
+@endif
+
+<div class="col-lg-offset-0 col-lg-12">
+    <h2 class="st_1">Cadastramento de Cliente</h2>
+</div>
+
 
 {{--FORMULÁRIO--}}
 
@@ -74,7 +82,7 @@
     <div class="form-group">
         <label for="icpf" class="col-sm-2 control-label">CPF: </label>
         <div class="col-sm-10">
-            <input type="number" name="cpf" id="icpf" placeholder="Apenas números">
+            <input type="number" name="cpf" id="icpf" placeholder="Apenas números" autofocus="autofocus">
         </div>
     </div>
 
@@ -100,7 +108,7 @@
     </div>
 
     <div class="form-group col-sm-3 control-label">
-            <input type="submit" name="publicar" value="Publicar">
+        <input type="submit" name="publicar" value="Publicar">
     </div>
 
 </form>
