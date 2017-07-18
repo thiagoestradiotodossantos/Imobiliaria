@@ -3,9 +3,15 @@
 <head>
     <title>Simulação Habitacional</title>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <script src="/js/app.js"></script>
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">--}}
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>--}}
 </head>
+
 
 <body>
 
@@ -63,7 +69,7 @@
     {{--    <h4>{{$errors->first()}}</h4>--}}
     <div class="alert alert-info" role="alert">
         <strong>{{$errors->first()}}</strong> A operação foi realizada com sucesso. Atente-se à lista de simulações.
-        </div>
+    </div>
 @endif
 
 <div class="col-lg-offset-0 col-lg-12">
@@ -76,7 +82,12 @@
     <!--------------Tabela---------------------->
     <table class="table table-bordered">
         <thead>
-        <tr> <td>Nome do Empreendimento</td> <td>Unidade</td> <td>Preço</td> <td>Excluir Cadastro</td></tr>
+        <tr>
+            <td>Nome do Empreendimento</td>
+            <td>Unidade</td>
+            <td>Preço</td>
+            <td>Excluir Cadastro</td>
+        </tr>
         </thead>
         <tbody>
         @if($imoveis)
@@ -86,46 +97,56 @@
                     <td>{{$imovel->unidade}}</td>
                     <td>{{$imovel->preco}}</td>
                     <td>
+                        {{--FUNCIONAL 1--}}
                         {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<input type="submit" name="delImovel" value="{{ $imovel->id }}">--}}
+                        {{--{{ csrf_field() }}--}}
+                        {{--<input type="submit" name="delImovel" value="{{ $imovel->id }}">--}}
                         {{--</form>--}}
 
+                        {{--FUNCIONAL 2--}}
                         {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
-                            {{--<button type="submit">Excluir</button>--}}
+                        {{--{{ csrf_field() }}--}}
+                        {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
+                        {{--<button type="submit">Excluir</button>--}}
                         {{--</form>--}}
 
+                        {{--NÃO FUNCIONAL 3--}}
 
-                            <button type="button" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">
-                                Excluir
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                                 data-b>
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
-                                        </div>
+                        {{--{{dump($imovel->id)}}--}}
+                        {{--{{dump($myIdImovel)}}--}}
+                        {{----}}
+                        <button type="button" class="abre-myModal btn btn-danger sm-lg" data-toggle="modal"
+                                data-target="#myModal"
+                                data-id="{{ $imovel->id }}"> Excluir
+                        </button>
 
-                                        <div class="modal-body">
-                                            <h5>Tem certeza que deseja excluir o cadastro?</h5>
-                                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             data-b>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
 
-                                        {{--<div class="modal-footer">--}}
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <h5>Tem certeza que deseja excluir o cadastro?</h5>
+                                    </div>
+
+                                    <div class="modal-footer">
                                         <div class="modal-footer" style="display: flex">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
                                             </button>
                                             {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
-                                            {{--<form action="/" method="GET">--}}
+                                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                                             <div class="col-md-2 col-md-offset-0">
                                                 <form action="{{ route('excluiCadastro') }}" method="POST">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="delImovel" value="{{ $imovel->id }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
+                                                    <input id="dell" type="hidden" name="delImovel[]" value="">
                                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                                 </form>
                                             </div>
@@ -133,7 +154,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                     </td>
                 </tr>
         @endforeach
@@ -144,4 +165,14 @@
     </table>
 </section>
 </body>
+
+<script>
+    $(".abre-myModal").on("click", function () {
+        var myIdImovel = $(this).data('id');
+//        var myIdImovel = 1;
+//        console.log(myIdImovel);
+        $("#dell").val(myIdImovel);
+    });
+</script>
+
 </html>

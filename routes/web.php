@@ -12,12 +12,15 @@
 */
 
 
+
+
+
 //ROTAS DO SISTEMA--------------------------------------------------------------------------//
 Route::get('/', function () {
     return view('index');
 })->name('inicio');
 
-Route::post('/Exlui', 'SistemaController@exclui')->name('excluiCadastro');
+Route::post('/Exclui', 'SistemaController@exclui')->name('excluiCadastro');
 
 //Route::post('/Erro', 'SistemaController@erro')->name('erroCadastro');
 //__________________________________________________________________________________________//

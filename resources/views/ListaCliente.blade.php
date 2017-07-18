@@ -3,8 +3,14 @@
 <head>
     <title>Simulação Habitacional</title>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <script src="/js/app.js"></script>
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">--}}
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>--}}
 
 </head>
 
@@ -64,6 +70,7 @@
 
 
 @if($errors->first())
+
     {{--{{dump($errors->first())}}--}}
     {{--    <h4>{{$errors->first()}}</h4>--}}
     <div class="alert alert-info" role="alert">
@@ -100,42 +107,15 @@
                     <td>{{$cliente->renda}}</td>
                     {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
                     <td>
-                    {{----}}
-                    <!--BOTÃO 1-->
-                    {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                    {{--{{ csrf_field() }}--}}
-                    {{--<input type="submit" name="delCliente" value="{{  $cliente->id }}">--}}
-                    {{--</form>--}}
-                    {{----}}
-                    <!--BOTÃO 2-->
-                    {{--<form action="{{ route('excluiCadastro') }}" method="POST">--}}
-                    {{--{{ csrf_field() }}--}}
-                    {{--<input type="hidden" name="delCliente" value="{{ $cliente->id }}">--}}
-                    {{--<button type="submit">Excluir</button>--}}
-                    {{--</form>--}}
-                    {{----}}
-                    {{----}}
-                    {{----}}
-
 
                     <!--BOTÃO 3 Modal-->
-
-                    <!-- Button trigger modal -->
-                        <input type="hidden" name="delCliente[]" value="{{ $cliente->id }}">
-                        {{--<button type="submit" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">--}}
-                        <button type="submit" class="btn btn-danger sm-lg" data-toggle="modal" data-target="{{$myModal[]}}">
-                            Excluir
+                        <button type="button" class="abre-myModal btn btn-danger sm-lg" data-toggle="modal"
+                                data-target="#myModal"
+                                data-id="{{ $cliente->id }}"> Excluir
                         </button>
-                        {{--{{dump($cliente->id)}}--}}
-                        {{--{{dump($delCliente[0])}}--}}
-
-                        {{--<button type="button" class="btn btn-danger sm-lg" data-toggle="modal" data-target="#myModal">--}}
-                            {{--Excluir--}}
-                        {{--</button>--}}
 
                         <!-- Modal -->
-                        {{--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"--}}
-                        <div class="modal fade" id="myModal[]" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                              data-b>
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -149,22 +129,17 @@
                                         <h5>Tem certeza que deseja excluir o cadastro?</h5>
                                     </div>
 
-                                    {{--<div class="modal-footer">--}}
-                                    <div class="modal-footer" style="display: flex">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
-                                        </button>
-                                        {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
-                                        {{--<form action="/" method="GET">--}}
-                                        <div class="col-md-2 col-md-offset-0">
-                                            <form action="{{ route('excluiCadastro') }}" method="POST">
-                                                {{ csrf_field() }}
-
-                                                {{--{{dump($cliente->id)}}--}}
-                                                <input type="hidden" name="delCliente[]" value="{{ $cliente->id }}">
-
-                                                {{--<input type="hidden" name="delCliente" value=$delCliente[]>--}}
-                                                <button type="submit" class="btn btn-primary">Confirmar</button>
-                                            </form>
+                                    <div class="modal-footer">
+                                        <div class="modal-footer" style="display: flex">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                                            </button>
+                                            <div class="col-md-2 col-md-offset-0">
+                                                <form action="{{ route('excluiCadastro') }}" method="POST">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input id="dell" type="hidden" name="delCliente[]" value="">
+                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -178,12 +153,14 @@
 
         </tbody>
     </table>
-    {{--</div>--}}
-    {{--<select name="select" id="1">--}}
-    {{--@foreach($clientes as $cliente)--}}
-    {{--<option value="{{$cliente->id}}">{{$cliente->nome}}</option>--}}
-    {{--@endforeach--}}
-    {{--</select>--}}
 </section>
 </body>
+
+<script>
+    $(".abre-myModal").on("click", function () {
+        var myIdCliente = $(this).data('id');
+        $("#dell").val(myIdCliente);
+    });
+</script>
+
 </html>

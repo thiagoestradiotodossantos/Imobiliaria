@@ -46,7 +46,7 @@ class SistemaController extends Controller
 //...................................................................................
 
 //        dd($request->all());
-        dd($request->delCliente);
+//        dd($request->delImovel);
 //        dump($request->get('delSimulacao'));
 //        dd($request->get('delCliente'));
 //        if($request->delCliente == 'Excluir')
@@ -70,6 +70,9 @@ class SistemaController extends Controller
             $id = $request->get('delSimulacao')[0];
 //            $voltar = 3;
         }
+//        else{
+//            return view('welcome');
+//        }
 
         $cadastro = $cadastro->where('id', $id);
 //        dd($cadastro);
