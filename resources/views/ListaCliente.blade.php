@@ -108,7 +108,7 @@
                     {{--<td><a href="{{ route('excluiCadastro', ['id'=>$cliente->id, 1])}}">Excluir</a></td>--}}
                     <td>
 
-                    <!--BOTÃO 3 Modal-->
+                        <!--BOTÃO 3 Modal-->
                         <button type="button" class="abre-myModal btn btn-danger sm-lg" data-toggle="modal"
                                 data-target="#myModal"
                                 data-id="{{ $cliente->id }}"> Excluir
@@ -118,32 +118,30 @@
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                              data-b>
                             <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
-                                    </div>
+                                < class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Atenção!</h4>
+                                </div>
 
-                                    <div class="modal-body">
-                                        <h5>Tem certeza que deseja excluir o cadastro?</h5>
-                                    </div>
+                                <div class="modal-body">
+                                    <h5>Tem certeza que deseja excluir o cadastro?</h5>
+                                </div>
 
-                                    <div class="modal-footer">
-                                        <div class="modal-footer" style="display: flex">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
-                                            </button>
-                                            <div class="col-md-2 col-md-offset-0">
-                                                <form action="{{ route('excluiCadastro') }}" method="POST">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input id="dell" type="hidden" name="delCliente[]" value="">
-                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                                                </form>
-                                            </div>
-                                        </div>
+                                <div class="modal-footer" style="display: flex">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                                    </button>
+                                    <div class="col-md-2 col-md-offset-0">
+                                        <form action="{{ route('excluiCadastro') }}" method="POST">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input id="dell" type="hidden" name="delCliente[]" value="">
+                                            <button type="submit" class="btn btn-primary">Confirmar</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </td>
                 </tr>

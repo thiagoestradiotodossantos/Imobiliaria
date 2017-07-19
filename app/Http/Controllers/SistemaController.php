@@ -16,6 +16,24 @@ use Illuminate\Support\Facades\Redirect;
 class SistemaController extends Controller
 {
 
+
+//    public function informa()
+    public function informa(Request $request)
+    {
+//        dd($request);
+//        return $clientes;
+
+//        $data = $request->all();
+        $cpf = $request->clienteCpf;
+//        dump($cpf);
+
+        $clientes = Cliente::all();
+        $cliente = $clientes->where('cpf', $cpf)->first();
+//        dump($cliente);
+
+        return $cliente;
+    }
+
 //    public function exclui($id)       //FUNCIONAL
 //    {
 //        $clientes = Cliente::all();
@@ -27,8 +45,6 @@ class SistemaController extends Controller
 
     public function exclui(Request $request)
     {
-
-
 //........Falha: comparação de string com NULL; Método inválido pra o POST;.......
 //        if (delCliente != null) {
 //            $cadastro = Cliente::all();

@@ -136,20 +136,18 @@
                                         <h5>Tem certeza que deseja excluir o cadastro?</h5>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <div class="modal-footer" style="display: flex">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
-                                            </button>
-                                            {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
-                                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-                                            <div class="col-md-2 col-md-offset-0">
-                                                <form action="{{ route('excluiCadastro') }}" method="POST">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
-                                                    <input id="dell" type="hidden" name="delImovel[]" value="">
-                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                                                </form>
-                                            </div>
+                                    <div class="modal-footer" style="display: flex">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                                        </button>
+                                        {{--<button type="button" class="btn btn-primary">Excluir</button>--}}
+                                        {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                                        <div class="col-md-2 col-md-offset-0">
+                                            <form action="{{ route('excluiCadastro') }}" method="POST">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                {{--<input type="hidden" name="delImovel" value="{{ $imovel->id }}">--}}
+                                                <input id="dell" type="hidden" name="delImovel[]" value="">
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -167,11 +165,13 @@
 </body>
 
 <script>
-    $(".abre-myModal").on("click", function () {
-        var myIdImovel = $(this).data('id');
+    $(document).ready(function() {
+        $(".abre-myModal").on("click", function () {
+            var myIdImovel = $(this).data('id');
 //        var myIdImovel = 1;
 //        console.log(myIdImovel);
-        $("#dell").val(myIdImovel);
+            $("#dell").val(myIdImovel);
+        });
     });
 </script>
 

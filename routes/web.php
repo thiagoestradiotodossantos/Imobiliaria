@@ -11,18 +11,20 @@
 |
 */
 
-
-
-
-
 //ROTAS DO SISTEMA--------------------------------------------------------------------------//
 Route::get('/', function () {
     return view('index');
 })->name('inicio');
 
+Route::post('/ListaSimulacao/InformacaoCliente', 'SistemaController@informa');//->name('infoCliente');
+//Route::get('/InformacaoCliente/{clienteCpf?}', function (){
+//    return view('welcome');
+//});
+
 Route::post('/Exclui', 'SistemaController@exclui')->name('excluiCadastro');
 
 //Route::post('/Erro', 'SistemaController@erro')->name('erroCadastro');
+
 //__________________________________________________________________________________________//
 
 
